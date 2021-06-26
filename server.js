@@ -6,7 +6,7 @@ const User = require('./models/usershema')
 const app= express();
 app.use(express.json())
 connectDB()
-
+//ADD A NEW USER TO THE DATABASE
 app.post('/users/post',async (req, res)=>{
     const {name,email,password}=req.body;
     try {
@@ -17,6 +17,7 @@ app.post('/users/post',async (req, res)=>{
             console.error(error)
         }
 } )
+//RETURN ALL USERS
 app.get('/users/get',async (req, res)=>{
     try {
         const users = await User.find()
@@ -25,7 +26,7 @@ app.get('/users/get',async (req, res)=>{
         console.error(error)
     }
 })
- 
+ //RETURN ONE USERS BASED ONLY ID
 app.get('/users/get/:id',async (req, res)=>{
     try {
         const users = await User.findById(req.params.id)
@@ -34,6 +35,7 @@ app.get('/users/get/:id',async (req, res)=>{
         console.error(error)
     }
 })
+//UPDATE USERS
 app.put('/users/put/:id',async (req, res)=>{
     try {
         const editedUser = await User.findByIdAndUpdate(req.params.id,{...req.body},{new:true})
@@ -42,6 +44,7 @@ app.put('/users/put/:id',async (req, res)=>{
         console.error(error)
     }
 })
+//DELETE USERS
 app.delete('/users/delete/:id',async(req,res) =>{
     try {
         const deleteUser=await User.findByIdAndDelete(req.params.id)
